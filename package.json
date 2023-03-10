@@ -1,0 +1,31 @@
+{
+  "name": "api-academia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yasminreisk/API-Academia.git"
+  },
+  "author": "Yasmin Reis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yasminreisk/API-Academia/issues"
+  },
+  "homepage": "https://github.com/yasminreisk/API-Academia#readme",
+  "dependencies": {
+    "consign": "^0.1.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.15",
+    "react-icons": "^4.3.1",
+    "react-scroll": "^1.8.4",
+    "react-use-effect": "^0.0.1",
+    "sqlite3": "^5.0.2",
+    "styled-components": "^5.3.3"
+  }
+}
