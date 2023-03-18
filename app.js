@@ -18,5 +18,5 @@ alunos(app, db)
 
 app.listen(PORT, ()=>
 {
-console.log("Servidor rodando: http://localhost:3000");
+console.log("Servidor: http://localhost:3000");
 })

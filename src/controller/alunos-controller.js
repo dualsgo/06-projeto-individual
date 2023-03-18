@@ -8,66 +8,66 @@ const expAlunos = (app, db) => {
         try {
             const resposta = await alunosDB.getAllAlunos()
             res.json(resposta)
-    }
+        }
         catch (error) {
             res.json(error)
-    }
-  })
+        }
+    })
 
-    app.post('/alunos', async (req,res) =>{
+    app.post('/alunos', async (req, res) => {
         try {
             const body = req.body
-            const newAluno = new Aluno (body.nome, body.cpf, body.endereco, body.estado, body.telefone, body.email, body.plano)
+            const newAluno = new Aluno(body.nome, body.cpf, body.endereco, body.estado, body.telefone, body.email, body.plano)
 
             const resp = await alunosDB.postAlunos(newAluno)
             res.json(resp)
-            }
+        }
         catch (error) {
-            res.json ({
-            "msg": error.message,
-            "error": true
-      })
-    }
-  })
+            res.json({
+                "msg": error.message,
+                "error": true
+            })
+        }
+    })
 
-  app.get('/alunos/:id', async (req, res) => {
-            const id = req.params.id
+    app.get('/alunos/:id', async (req, res) => {
+        const id = req.params.id
         try {
             const resposta = await alunosDB.getIdAlunos(id)
             res.json(resposta)
         }
-        catch (error){
+        catch (error) {
             res.status(404).json(error)
-    }
-   })
+        }
+    })
 
     app.put('/alunos/:id', async (req, res) => {
         const id = req.params.id
         const body = req.body
 
-        try{
+        try {
             const get = await alunosDB.getIdAlunos(id)
             const update = get.req[0]
 
             if (update) {
-                const updatedAlunos = new Aluno (body.nome || update.nome, body.cpf || update.cpf, body.endereco || update.endereco, body.estado || update.estado, body.telefone || update.telefone, body.email || update.email, body.plano || update.plano)
+                const updatedAlunos = new Aluno(body.nome || update.nome, body.cpf || update.cpf, body.endereco || update.endereco, body.estado || update.estado, body.telefone || update.telefone, body.email || update.email, body.plano || update.plano)
 
                 const resposta = await alunosDB.updateAlunos(id, updatedAlunos)
                 res.json(resposta)
 
             } else {
-                res.json ({
+                res.json({
                     "msg": `Aluno com id ${id} não existe`,
                     "error": true
                 })
             }
         }
-        
-        catch(error){
-            res.json ({
+
+        catch (error) {
+            res.json({
                 "msg": error.message,
                 "error": true
-            })       
+            })
         }
     })
 
@@ -78,7 +78,7 @@ const expAlunos = (app, db) => {
             res.json(resposta)
         }
         catch (error) {
-            res.status(404).json ({
+            res.status(404).json({
                 "msg": error.message,
                 "error": true
             })
