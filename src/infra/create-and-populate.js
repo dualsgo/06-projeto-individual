@@ -14,13 +14,32 @@ const ALUNOS_SCHEMA = `
         "email"    varchar(30),
         "plano"    varchar(10)
     )`
+const SOBRE_SCHEMA = `
+    CREATE TABLE IF NOT EXISTS "SOBRE" (
+        "sobreId" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "comment"     varchar(100)
+    )`
+const FUNCIONALIDADES_SCHEMA = `
+    CREATE TABLE IF NOT EXISTS "FUNCIONALIDADES" (
+        "funcionalidadeId" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "name"     varchar(20),
+        "comment"      varchar(100)
+    )`
+const USER_SCHEMA = `
+    CREATE TABLE IF NOT EXISTS "USER" (
+        "userId" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "firstName"     varchar(50),
+        "lastName"      varchar(11),
+        "email" varchar(25),
+        "number"   varchar (13)
+    )`
 
-    function criaTabela() {
-    db.run(ALUNOS_SCHEMA,(error) => {
-        if(error) console.log('Erro ao criar a tabela alunos.')
+function criaTabela() {
+    db.run(ALUNOS_SCHEMA, SOBRE_SCHEMA, FUNCIONALIDADES_SCHEMA, USER_SCHEMA, (error) => {
+        if (error) console.log('Erro ao criar a tabela ALUNOS.')
     })
 }
 
-db.serialize( () => {
-   criaTabela()
+db.serialize(() => {
+    criaTabela()
 })
