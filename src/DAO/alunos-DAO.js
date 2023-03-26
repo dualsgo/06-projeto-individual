@@ -3,39 +3,39 @@ module.exports = class AlunosDAO {
         this.db = db;
     }
 
-    getAllAlunos(){
+    getAllAlunos() {
         const tab = 'SELECT * FROM ALUNOS'
-        return new Promise ((resolve, reject) => {
-            this.db.all (tab, (error, rows) => {
+        return new Promise((resolve, reject) => {
+            this.db.all(tab, (error, rows) => {
                 if (error) {
-                    reject ({
+                    reject({
                         "msg": error.message,
                         "error": true
                     })
                 } else {
-                    resolve ({
+                    resolve({
                         "alunos": rows,
                         "count": rows.length,
                         "error": false
                     })
                 }
-            }) 
+            })
         })
     }
 
     postAlunos(newAluno) {
-        const tab = 'INSERT INTO ALUNOS (nome, cpf, endereco, estado, telefone, email, plano) VALUES (?,?,?,?,?,?,?)'
-        const post = [newAluno.nome, newAluno.cpf, newAluno.endereco, newAluno.estado, newAluno.telefone, newAluno.email, newAluno.plano]
-        
-        return new Promise((resolve, reject)=> {
+        const tab = 'INSERT INTO ALUNOS (nome, cpf,telefone, email ) VALUES (?,?,?,?)'
+        const post = [newAluno.nome, newAluno.cpf, newAluno.telefone, newAluno.email]
+
+        return new Promise((resolve, reject) => {
             this.db.run(tab, post, (error) => {
                 if (error) {
-                    reject ({
+                    reject({
                         "msg": error.message,
                         "error": true
                     })
                 } else {
-                    resolve ({
+                    resolve({
                         "req": newAluno,
                         "error": false
                     })
@@ -44,17 +44,17 @@ module.exports = class AlunosDAO {
         })
     }
 
-    getIdAlunos(id){
+    getIdAlunos(id) {
         const tab = `SELECT * FROM ALUNOS WHERE ID = ?`
-        return new Promise((resolve, reject)=> {
-            this.db.all(tab, id, (error, rows)=> {
+        return new Promise((resolve, reject) => {
+            this.db.all(tab, id, (error, rows) => {
                 if (error) {
-                    reject ({
+                    reject({
                         "msg": error.message,
                         "error": true
                     })
                 } else {
-                    resolve ({
+                    resolve({
                         "req": rows,
                         "error": false
                     })
@@ -65,14 +65,14 @@ module.exports = class AlunosDAO {
 
     async updateAlunos(id, newAluno) {
         try {
-            const tab = `UPDATE ALUNOS SET nome = (?), cpf = (?), endereco = (?), estado = (?), telefone = (?), email = (?), plano = (?) where id = (?)`
-            const update = [newAluno.nome, newAluno.cpf, newAluno.endereco, newAluno.estado, newAluno.telefone, newAluno.email, newAluno.plano, id]
-            return new Promise((resolve, reject)=> {
-                this.db.run(tab, update, (error)=> {
+            const tab = `UPDATE ALUNOS SET nome = (?), cpf = (?), telefone = (?), email = (?) id  = (?) where id = (?)`
+            const update = [newAluno.nome, newAluno.cpf, newAluno.telefone, newAluno.email, id]
+            return new Promise((resolve, reject) => {
+                this.db.run(tab, update, (error) => {
                     if (error) {
-                        reject (error)
+                        reject(error)
                     } else {
-                        resolve ({
+                        resolve({
                             "msg": `O aluno com id ${id} foi atualizado`,
                             "student": newAluno,
                             "error": false
@@ -86,18 +86,18 @@ module.exports = class AlunosDAO {
         }
     }
 
-   async deleteAlunos(id) {
+    async deleteAlunos(id) {
         try {
             const alunos = await this.getIdAlunos(id)
             if (alunos.req.length) {
                 const tab = `DELETE FROM ALUNOS WHERE ID = ?`
 
-                return new Promise((resolve, reject)=> {
+                return new Promise((resolve, reject) => {
                     this.db.run(tab, id, (error) => {
                         if (error) {
-                            reject (error.message)  
+                            reject(error.message)
                         } else {
-                            resolve ({
+                            resolve({
                                 "msg": `O aluno com id ${id} foi deletado`,
                                 "error": false
                             })
@@ -105,10 +105,10 @@ module.exports = class AlunosDAO {
                     })
                 })
             } else {
-                throw new Error (`Aluno com id ${id} não existe`)
-        }
-    } catch (error) {
+                throw new Error(`Aluno com id ${id} não existe`)
+            }
+        } catch (error) {
             throw new Error(error.message)
-      }
+        }
     }
 } 

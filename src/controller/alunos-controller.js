@@ -17,7 +17,7 @@ const expAlunos = (app, db) => {
     app.post('/alunos', async (req, res) => {
         try {
             const body = req.body
-            const newAluno = new Aluno(body.nome, body.cpf, body.endereco, body.estado, body.telefone, body.email, body.plano)
+            const newAluno = new Aluno(body.nome, body.cpf, body.telefone, body.email )
 
             const resp = await alunosDB.postAlunos(newAluno)
             res.json(resp)
@@ -50,7 +50,7 @@ const expAlunos = (app, db) => {
             const update = get.req[0]
 
             if (update) {
-                const updatedAlunos = new Aluno(body.nome || update.nome, body.cpf || update.cpf, body.endereco || update.endereco, body.estado || update.estado, body.telefone || update.telefone, body.email || update.email, body.plano || update.plano)
+                const updatedAlunos = new Aluno(body.nome || update.nome, body.cpf || update.cpf,  body.telefone || update.telefone, body.email || update.email)
 
                 const resposta = await alunosDB.updateAlunos(id, updatedAlunos)
                 res.json(resposta)

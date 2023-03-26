@@ -8,11 +8,8 @@ const ALUNOS_SCHEMA = `
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
         "nome"     varchar(50),
         "cpf"      varchar(11),
-        "endereco" varchar(50),
-        "estado"   varchar (10),
         "telefone" varchar(11),
-        "email"    varchar(30),
-        "plano"    varchar(10)
+        "email"    varchar(30)
     )`
 
     function criaTabela() {
